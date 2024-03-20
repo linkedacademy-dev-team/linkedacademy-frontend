@@ -1,15 +1,9 @@
 <template>
-    <div>
-        <h1>Logins</h1>
-    </div>
+  <div class="min-h-screen flex">
+    <router-view />
+  </div>
 </template>
 
-<script>
-export default {
+<script setup></script>
 
-}
-</script>
-
-<style>
-
-</style>
+<style></style>
