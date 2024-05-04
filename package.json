@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
+    "@vue-hero-icons/outline": "^1.7.2",
     "axios": "^1.6.8",
+    "leaflet": "^1.9.4",
     "primevue": "^3.50.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
