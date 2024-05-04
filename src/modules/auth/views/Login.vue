@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" action="#" @submit.prevent="loginUser" method="POST">
         <div>
           <label
             for="email"
@@ -30,6 +30,7 @@
               type="email"
               autocomplete="email"
               required=""
+              v-model="userData.email"
               class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
           </div>
@@ -56,6 +57,7 @@
               name="password"
               type="password"
               autocomplete="current-password"
+              v-model="userData.password"
               required=""
               class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
@@ -64,7 +66,7 @@
 
         <div>
           <button
-          @click="login"
+            @click="loginUser"
             type="submit"
             class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
@@ -89,12 +91,21 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { ref } from "vue";
 
 const router = useRouter();
 const store = useStore();
 
-const login = () => {
-  store.dispatch("auth/login");
+const userData = ref({
+  email: "",
+  password: "",
+});
+
+const loginUser = () => {
+  // console.log("loginUser");
+  // const user = userData.value;
+  // store.dispatch("VALIDATE_USER", { user });
+  
 };
 
 const toRegister = () => {
@@ -104,6 +115,5 @@ const toRegister = () => {
 };
 </script>
 
-<style scoped>
-
+<style >
 </style>
