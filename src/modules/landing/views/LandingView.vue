@@ -191,16 +191,9 @@
 
       <!-- Feature section -->
       <div class="">
-
         <div class="relative overflow-hidden pt-16">
           <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <img
-              src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-              alt="App screenshot"
-              class="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-white/10"
-              width="2432"
-              height="1442"
-            />
+            <Map />
             <div class="relative" aria-hidden="true">
               <div
                 class="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-gray-900 pt-[7%]"
@@ -208,7 +201,7 @@
             </div>
           </div>
         </div>
-        <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
+        <!-- <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
           <dl
             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16"
           >
@@ -229,11 +222,11 @@
               <dd class="inline">{{ feature.description }}</dd>
             </div>
           </dl>
-        </div>
+        </div> -->
       </div>
 
       <!-- Stats -->
-      <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+      <!-- <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
           <h2 class="text-base font-semibold leading-8 text-indigo-400">
             Our track record
@@ -249,24 +242,11 @@
             ratione.
           </p>
         </div>
-        <dl
-          class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4"
-        >
-          <div
-            v-for="stat in stats"
-            :key="stat.id"
-            class="flex flex-col gap-y-3 border-l border-white/10 pl-6"
-          >
-            <dt class="text-sm leading-6">{{ stat.name }}</dt>
-            <dd class="order-first text-3xl font-semibold tracking-tight">
-              {{ stat.value }}
-            </dd>
-          </div>
-        </dl>
-      </div>
+
+      </div> -->
 
       <!-- CTA section -->
-      <div class="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8">
+      <div class="relative isolate  px-6 py-32  sm:py-40 lg:px-8">
         <svg
           class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
           aria-hidden="true"
@@ -326,7 +306,7 @@
         </div>
         <div class="mx-auto max-w-2xl text-center">
           <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Boost your productivity.<br />Start using our app today.
+            Todo lo que buscas.<br />En un solo lugar.
           </h2>
           <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
             Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
@@ -336,10 +316,10 @@
             <a
               href="#"
               class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >Get started</a
+              >Comienza a usar la plataforma</a
             >
             <a href="#" class="text-sm font-semibold leading-6 text-white"
-              >Learn more <span aria-hidden="true">→</span></a
+              >Inicia sesion <span aria-hidden="true">→</span></a
             >
           </div>
         </div>
@@ -375,6 +355,7 @@
 
 <script setup>
 import { defineComponent, h } from "vue";
+import Map from "../common/Map.vue";
 import {
   ArrowPathIcon,
   ChevronRightIcon,
