@@ -1,13 +1,9 @@
 <template>
+    <div class="min-h-screen flex">
+      <router-view />
+    </div>
+  </template>
   
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
+  <script setup></script>
+  
+  <style></style>
