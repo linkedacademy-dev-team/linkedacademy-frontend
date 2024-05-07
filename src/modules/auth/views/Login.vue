@@ -83,7 +83,7 @@
         No tienes cuenta?
         {{ " " }}
         <router-link
-          to="/register"
+          :to="{ name: 'Register' }"
           class="font-semibold leading-6 text-indigo-400 hover:text-indigo-300"
           >Crea tu cuenta
         </router-link>
