@@ -13,9 +13,11 @@
     "@heroicons/vue": "^2.0.18",
     "@vue-hero-icons/outline": "^1.7.2",
     "axios": "^1.6.8",
+    "js-cookie": "^3.0.5",
     "primevue": "^3.50.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
+    "vue-sonner": "^1.1.2",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
