@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useStore } from "vuex";
+import store from "../store/index";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,7 +19,7 @@ const router = createRouter({
     },
     {
       name: "LandingLayout",
-      path: "/landing",
+      path: "/",
       component: () => import("../modules/landing/module.vue"),
       children: [
         {
@@ -29,12 +31,12 @@ const router = createRouter({
     },
     {
       name: "LoginLayout",
-      path: "/",
+      path: "/auth",
       component: () => import("../modules/auth/module.vue"),
       children: [
         {
           name: "Login",
-          path: "",
+          path: "login",
           component: () => import("../modules/auth/views/Login.vue"),
         },
         {
@@ -46,5 +48,19 @@ const router = createRouter({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const store = useStore();
+  const exclude = ["Landing", "Register", "Login"];
+  if (exclude.includes(to.name)) {
+    next();
+  } else {
+    if (to.name !== exclude && !store.state.authToken) {
+      next({ name: "Login" });
+    } else {
+      next();
+    }
+  }
+}, []);
 
 export default router;
