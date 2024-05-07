@@ -16,7 +16,12 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" @submit.prevent="loginUser" method="POST">
+      <form
+        class="space-y-6"
+        action="#"
+        @submit.prevent="loginUser"
+        method="POST"
+      >
         <div>
           <label
             for="email"
@@ -101,11 +106,16 @@ const userData = ref({
   password: "",
 });
 
-const loginUser = () => {
-  // console.log("loginUser");
-  // const user = userData.value;
-  // store.dispatch("VALIDATE_USER", { user });
-  
+const loginUser = async () => {
+  const user = userData.value;
+  try {
+    await store.dispatch("VALIDATE_USER", { user });
+    router.push({
+      name: "Home",
+    });
+  } catch (err) {
+    throw err;
+  }
 };
 
 const toRegister = () => {
@@ -115,5 +125,4 @@ const toRegister = () => {
 };
 </script>
 
-<style >
-</style>
+<style></style>

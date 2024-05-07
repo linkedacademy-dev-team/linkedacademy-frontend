@@ -1,9 +1,15 @@
 <script setup>
+import { Toaster, toast } from "vue-sonner";
 </script>
 
 <template>
   <div id="app">
-    
+    <Toaster
+      rich-colors=""
+      position="top-right"
+      :close-button="true"
+      :duration="1400"
+    />
     <router-view />
   </div>
 </template>
