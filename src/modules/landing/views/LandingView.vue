@@ -111,13 +111,16 @@
           <div
             class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32"
           >
-            <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+            <div
+              style="mask-image: linear-gradient(#000 88%, #0000 100%)"
+              class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none"
+            >
               <img
                 src="../../../assets/casual-life-3d-boy-sitting-at-the-desk-with-open-book.webp"
                 alt="App screenshot"
                 width="2432"
                 height="1442"
-                class="w-[40rem]  rounded-md"
+                class="w-[40rem] rounded-md"
               />
             </div>
           </div>
@@ -246,7 +249,7 @@
       </div> -->
 
       <!-- CTA section -->
-      <div class="relative isolate  px-6 py-32  sm:py-40 lg:px-8">
+      <div class="relative isolate px-6 py-32 sm:py-40 lg:px-8">
         <svg
           class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
           aria-hidden="true"
