@@ -351,6 +351,7 @@ import {
   RectangleStackIcon,
   LanguageIcon,
   FolderIcon,
+  SparklesIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
@@ -384,7 +385,8 @@ const navigation = [
     icon: RectangleStackIcon,
     current: false,
   },
-  { name: "Discapacidades", href: "#", icon: FaceFrownIcon, current: false },
+  //   { name: "Discapacidades", href: "#", icon: FaceFrownIcon, current: false },
+  { name: "Discapacidades", href: "#", icon: SparklesIcon, current: false },
 
   { name: "Grupos etnicos", href: "#", icon: UsersIcon, current: false },
   { name: "Idiomas", href: "#", icon: LanguageIcon, current: false },
