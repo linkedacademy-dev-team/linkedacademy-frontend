@@ -8,4 +8,13 @@ export default {
     state.authToken = null;
     Cookies.remove("AuthToken");
   },
+  SET_COUNTRIES(state, countries) {
+    state.countries = countries;
+  },
+  SET_DEPARTMENTS(state, departments) {
+    state.departments = departments;
+  },
+  SET_CITIES(state, cities) {
+    state.cities = cities;
+  },
 };

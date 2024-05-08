@@ -8,4 +8,7 @@ export default {
   userToken: "qoeX9mvEAuok1JDRGKR1mjvbGFUZmC",
   passToken: "kfZPm0P8YrRg7yYwtgzw4KszxzA4ii",
   authToken: Cookies.get("AuthToken") || null,
+  countries: [],
+  departments: [],
+  cities: [],
 };
