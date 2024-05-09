@@ -46,13 +46,17 @@ const router = createRouter({
         },
       ],
     },
+    { path: "/:pathMatch(.*)*", redirect: { name: "Home" } },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const store = useStore();
   const exclude = ["Landing", "Register", "Login"];
-  if (exclude.includes(to.name)) {
+  if (exclude.includes(to.name) && to.name !== "Landing") {
+    if (store.state.authToken) {
+      next({ name: "Home" });
+    }
     next();
   } else {
     if (to.name !== exclude && !store.state.authToken) {

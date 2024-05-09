@@ -1,23 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import http from "./utils/axios";
 import { Toaster, toast } from "vue-sonner";
 import state from "./state";
-
-const encoded = btoa(`${state.userToken}:${state.passToken}`);
 
 export default {
   async VALIDATE_USER({ commit, state }, { user }) {
     try {
       const URL = `${state.url_linked_academy}/auth/signin`;
-      console.log(encoded);
-      const { data } = await axios({
-        method: "POST",
-        url: URL,
-        headers: {
-          Authorization: "Basic " + encoded,
-        },
-        data: user,
-      });
+      const { data } = await http.post(URL, user);
       if (data.access_token) {
         commit("SET_AUTH_TOKEN", data.access_token);
       } else {
@@ -35,15 +26,7 @@ export default {
   async REGISTER_USER({ state }, { user }) {
     try {
       const URL = `${state.url_linked_academy}/auth/signup`;
-      const encoded = btoa(`${state.userToken}:${state.passToken}`);
-      const { data } = await axios({
-        method: "POST",
-        url: URL,
-        headers: {
-          Authorization: "Basic " + encoded,
-        },
-        data: user,
-      });
+      const { data } = await http.post(URL, user);
       return data;
     } catch (error) {
       throw error;
@@ -67,13 +50,7 @@ export default {
   async GET_COUNTRIES({ commit, state }) {
     try {
       const URL = `${state.url_linked_academy}/locations/countries`;
-      const { data } = await axios({
-        method: "GET",
-        url: URL,
-        headers: {
-          Authorization: "Basic " + encoded,
-        },
-      });
+      const { data } = await http.get(URL);
       commit("SET_COUNTRIES", data);
     } catch (error) {
       throw error;
@@ -83,13 +60,7 @@ export default {
     console.log(country);
     try {
       const URL = `${state.url_linked_academy}/locations/departaments/${country}`;
-      const { data } = await axios({
-        method: "GET",
-        url: URL,
-        headers: {
-          Authorization: "Basic " + encoded,
-        },
-      });
+      const { data } = await http.get(URL);
 
       console.log(URL);
       console.log(data);
@@ -102,14 +73,8 @@ export default {
     console.log(departament);
     try {
       const URL = `${state.url_linked_academy}/locations/cities/${departament}`;
-      const { data } = await axios({
-        method: "GET",
-        url: URL,
-        headers: {
-          Authorization: "Basic " + encoded,
-        },
-      });
-      console.log(URL );
+      const { data } = await http.get(URL);
+      console.log(URL);
       console.log(data);
       commit("SET_CITIES", data);
     } catch (error) {
