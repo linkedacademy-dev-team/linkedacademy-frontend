@@ -296,13 +296,14 @@
                     v-for="item in userNavigation"
                     :key="item.name"
                     v-slot="{ active }"
+                    class="hover:bg-gray-300"
                   >
                     <span
+                      v-on:click="item.actions"
                       :class="[
                         active ? 'bg-gray-50' : '',
-                        'block px-3 py-1 text-sm leading-6 text-gray-900',
+                        'block cursor-pointer hover:text-blue-500 px-3 py-1 text-sm leading-6 text-gray-900',
                       ]"
-                      @click.prevent="item.actions()"
                       >{{ item.name }}</span
                     >
                   </MenuItem>
@@ -364,6 +365,9 @@ const token = store.state.authToken;
 
 const signOut = () => {
   store.dispatch("LOGOUT");
+  router.push({
+    name: "Login",
+  });
 };
 
 const goToProfile = () => {
@@ -397,8 +401,8 @@ const navigation = [
 //   { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
 // ];
 const userNavigation = [
-  { name: "Your profile", actions: goToProfile },
-  { name: "Sign out", actions: signOut },
+  { name: "Tu perfil", actions: goToProfile },
+  { name: "Cerrar sesion", actions: signOut },
 ];
 
 const sidebarOpen = ref(false);
