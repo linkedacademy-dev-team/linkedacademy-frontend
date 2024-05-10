@@ -1,1 +1,3 @@
-export default {};
+export default {
+  isAuth: (state) => state.authToken !== null,
+};

@@ -52,18 +52,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const store = useStore();
-  const exclude = ["Landing", "Register", "Login"];
-  if (exclude.includes(to.name) && to.name !== "Landing") {
-    if (store.state.authToken) {
-      next({ name: "Home" });
-    }
-    next();
+  const publicPages = ["Landing", "Register", "Login"];
+  const authRequired = !publicPages.includes(to.name);
+  const loggedIn = store.state.authToken;
+
+  if (loggedIn && (to.name === "Login" || to.name === "Register")) {
+    next({ name: "Home" });
+  } else if (!loggedIn && authRequired) {
+    next({ name: "Login" });
   } else {
-    if (to.name !== exclude && !store.state.authToken) {
-      next({ name: "Login" });
-    } else {
-      next();
-    }
+    next();
   }
 }, []);
 

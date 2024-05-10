@@ -23,12 +23,20 @@ export default {
   async LOGOUT({ commit }) {
     commit("LOGOUT");
   },
-  async REGISTER_USER({ state }, { user }) {
+  async REGISTER_USER({ state, commit }, { user }) {
     try {
-      const URL = `${state.url_linked_academy}/auth/signup`;
+      const URL = `${state.url_linked_academy}/auth/signup/attendant`;
       const { data } = await http.post(URL, user);
+      if (data.access_token) {
+        commit("SET_AUTH_TOKEN", data.access_token);
+      } else {
+        toast.error("Error al registrar usuario");
+      }
       return data;
     } catch (error) {
+      if (error) {
+        toast.error("Error al registrar usuario");
+      }
       throw error;
     }
   },
@@ -57,28 +65,24 @@ export default {
     }
   },
   async GET_DEPARTMENTS({ state, commit }, country) {
-    console.log(country);
+
     try {
       const URL = `${state.url_linked_academy}/locations/departaments/${country}`;
       const { data } = await http.get(URL);
-
-      console.log(URL);
-      console.log(data);
       commit("SET_DEPARTMENTS", data);
     } catch (error) {
       throw error;
     }
   },
   async GET_CITIES({ state, commit }, departament) {
-    console.log(departament);
     try {
       const URL = `${state.url_linked_academy}/locations/cities/${departament}`;
       const { data } = await http.get(URL);
-      console.log(URL);
-      console.log(data);
       commit("SET_CITIES", data);
     } catch (error) {
       throw error;
     }
   },
+
+
 };

@@ -17,4 +17,10 @@ export default {
   SET_CITIES(state, cities) {
     state.cities = cities;
   },
+  SET_GEOLOCATION(state, geolocation) {
+    const [latitude, longitude] = geolocation.coordinates;
+    Cookies.set("Latitude", latitude, { expires: 9999 });
+    Cookies.set("Longitude", longitude, { expires: 9999 });
+    state.geolocation = geolocation;
+  },
 };
