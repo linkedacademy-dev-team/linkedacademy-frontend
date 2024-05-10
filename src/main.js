@@ -4,6 +4,7 @@ import App from "./App.vue";
 import store from "@/store";
 import router from "./router/index.js";
 import PrimeVue from "primevue/config";
+import 'primevue/resources/themes/aura-light-green/theme.css'
 import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";

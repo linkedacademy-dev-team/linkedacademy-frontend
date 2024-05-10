@@ -97,28 +97,51 @@
               Encuentra los mejores lugares para la educación de tus hijos en un
               solo lugar de manera sencilla y rápida con Linked Academy.
             </p>
-            <div class="mt-10 flex items-center gap-x-6">
-              <a
-                href="#"
-                class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >Comienza a usar la plataforma</a
+            <div v-if="!isAuth" class="mt-10 flex items-center gap-x-6">
+              <router-link
+                :to="{
+                  name: 'Register',
+                }"
               >
-              <a href="#" class="text-sm font-semibold leading-6 text-white"
-                >Ingresa <span aria-hidden="true">→</span></a
+                <p
+                  class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                >
+                  Comienza a usar la plataforma
+                </p>
+              </router-link>
+              <router-link
+                :to="{
+                  name: 'Login',
+                }"
               >
+              </router-link>
+            </div>
+            <div v-else class="mt-10 flex items-center gap-x-6">
+              <router-link
+                :to="{
+                  name: 'Home',
+                }"
+              >
+                <p class="text-sm font-semibold leading-6 text-white">
+                  Volver al panel general <span aria-hidden="true">→</span>
+                </p>
+              </router-link>
             </div>
           </div>
           <div
             class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32"
           >
-            <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-              <!-- <img
-                src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+            <div
+              style="mask-image: linear-gradient(#000 88%, #0000 100%)"
+              class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none"
+            >
+              <img
+                src="../../../assets/casual-life-3d-boy-sitting-at-the-desk-with-open-book.webp"
                 alt="App screenshot"
                 width="2432"
                 height="1442"
-                class="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
-              /> -->
+                class="w-[40rem] rounded-md"
+              />
             </div>
           </div>
         </div>
@@ -246,7 +269,7 @@
       </div> -->
 
       <!-- CTA section -->
-      <div class="relative isolate  px-6 py-32  sm:py-40 lg:px-8">
+      <div class="relative isolate px-6 py-32 sm:py-40 lg:px-8">
         <svg
           class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
           aria-hidden="true"
@@ -312,15 +335,41 @@
             Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
             anim id veniam aliqua proident excepteur commodo do ea.
           </p>
-          <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="#"
-              class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >Comienza a usar la plataforma</a
+          <div
+            v-if="!isAuth"
+            class="mt-10 flex items-center justify-center gap-x-6"
+          >
+            <router-link
+              :to="{
+                name: 'Register',
+              }"
             >
-            <a href="#" class="text-sm font-semibold leading-6 text-white"
-              >Inicia sesion <span aria-hidden="true">→</span></a
+              <p
+                class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Comienza a usar la plataforma
+              </p>
+            </router-link>
+            <router-link
+              :to="{
+                name: 'Login',
+              }"
             >
+              <p class="text-sm font-semibold leading-6 text-white">
+                Inicia sesion <span aria-hidden="true">→</span>
+              </p>
+            </router-link>
+          </div>
+          <div v-else class="mt-10 flex items-center justify-center gap-x-6">
+            <router-link
+              :to="{
+                name: 'Home',
+              }"
+            >
+              <p class="text-sm font-semibold leading-6 text-white">
+                Volver al panel general <span aria-hidden="true">→</span>
+              </p>
+            </router-link>
           </div>
         </div>
       </div>
@@ -354,8 +403,12 @@
 </template>
 
 <script setup>
-import { defineComponent, h } from "vue";
+import { defineComponent, h, computed } from "vue";
 import Map from "../common/Map.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
 import {
   ArrowPathIcon,
   ChevronRightIcon,
@@ -534,4 +587,6 @@ const footerNavigation = {
     },
   ],
 };
+
+const isAuth = computed(() => store.getters["isAuth"]);
 </script>
