@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" action="#" @submit.prevent="registerUser">
         <div>
           <label
             for="first-name"
@@ -25,9 +25,10 @@
           >
           <div class="mt-2 mb-4">
             <input
+              v-model="userData.firstName"
               id="first-name"
               name="first-name"
-              type="first-name"
+              type="text"
               autocomplete="first-name"
               required="true"
               class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -41,9 +42,10 @@
           </label>
           <div class="mt-2 mb-4">
             <input
+              v-model="userData.lastName"
               id="last-name"
               name="last-name"
-              type="last-name"
+              type="text"
               autocomplete="last-name"
               required="true"
               class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -137,6 +139,7 @@
           >
           <div class="mt-2">
             <input
+              v-model="userData.email"
               id="email"
               name="email"
               type="email"
@@ -157,6 +160,7 @@
           </div>
           <div class="mt-2">
             <input
+              v-model="userData.password"
               id="password"
               name="password"
               type="password"
@@ -201,8 +205,8 @@ onMounted(() => {
 });
 
 const userData = ref({
-  first_name: "",
-  last_name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
 });
@@ -221,12 +225,27 @@ const getDepartments = () => {
     throw e;
   }
 };
-
 const getCities = () => {
   try {
     store.dispatch("GET_CITIES", departmentSelected.value);
   } catch (e) {
     throw e;
+  }
+};
+
+const registerUser = async () => {
+  const user = {
+    ...userData.value,
+    cityId: citySelected.value,
+    coordinates: null,
+  };
+  try {
+    await store.dispatch("REGISTER_USER", { user });
+    router.push({
+      name: "Home",
+    });
+  } catch (err) {
+    throw err;
   }
 };
 </script>
