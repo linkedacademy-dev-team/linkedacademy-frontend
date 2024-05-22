@@ -184,7 +184,7 @@
         Ya tienes una cuenta?
         {{ " " }}
         <router-link
-          to="/"
+          :to="{ name: 'Login' }"
           class="font-semibold leading-6 text-indigo-400 hover:text-indigo-300"
           >Ingresa con tu cuenta
         </router-link>
@@ -237,7 +237,7 @@ const registerUser = async () => {
   const user = {
     ...userData.value,
     cityId: citySelected.value,
-    coordinates: null,
+    coordinates:  null,
   };
   try {
     await store.dispatch("REGISTER_USER", { user });
