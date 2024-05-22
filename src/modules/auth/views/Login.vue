@@ -117,11 +117,7 @@ const loginUser = async () => {
   }
 };
 
-const toRegister = () => {
-  router.push({
-    name: "Register",
-  });
-};
+
 </script>
 
 <style></style>
