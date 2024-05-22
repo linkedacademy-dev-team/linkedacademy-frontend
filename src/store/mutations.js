@@ -23,4 +23,13 @@ export default {
     Cookies.set("Longitude", longitude, { expires: 9999 });
     state.geolocation = geolocation;
   },
+  SET_SCHOOLS(state, schools) {
+    state.schools = schools;
+  },
+  SET_SPECIALITIES(state, specialities) {
+    state.specialities = specialities;
+  },
+  SET_USER_DATA(state, userData) {
+    state.userData = userData;
+  }
 };
