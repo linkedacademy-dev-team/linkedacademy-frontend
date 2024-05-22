@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import Specialities from "../modules/home/views/specialities/Specialities.vue";
 
 const URL_LINKED_ACADEMY =
   "https://linkedacademy-backend-production.up.railway.app/api";
@@ -12,4 +13,15 @@ export default {
   countries: [],
   departments: [],
   cities: [],
+  schools: [],
+  specialities: [],
+  disabilities: [],
+  education_levels: [],
+  educational_models: [],
+  grades: [],
+  schedules: [],
+  languages: [],
+  sessions: [],
+  ethnic_groups: [],
+  userData: null,
 };
