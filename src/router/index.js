@@ -15,6 +15,52 @@ const router = createRouter({
           path: "",
           component: () => import("../modules/home/views/HomeView.vue"),
         },
+        {
+          name: "Specialties",
+          path: "specialties",
+          component: () => import("../modules/home/views/specialities/Specialities.vue"),
+        },
+        {
+          name: "Disabilities",
+          path: "disabilities",
+          component: () => import("../modules/home/views/disabilities/DisabilitiesView.vue"),
+        },
+        {
+          name:"Educational_Models",
+          path:"educational_models",
+          component:()=>import("../modules/home/views/educational_models/Educational_ModelView.vue")
+        },
+        {
+          name: "EducationalLevels",
+          path: "educational_levels",
+          component: () => import("../modules/home/views/levels_of_education/LevesOfEducationView.vue"),
+        },
+        {
+          name: "Grades",
+          path: "grades",
+          component: () => import("../modules/home/views/grades/GradesView.vue"),
+        },
+        {
+          name: "Schedule",
+          path: "schedule",
+          component: () => import("../modules/home/views/schedules/SchedulesView.vue"),
+        },
+        {
+          name: "Languages",
+          path: "languages",
+          component: () => import("../modules/home/views/languages/LanguagesView.vue"),
+        },
+        {
+          name: "Ethnicities",
+          path: "ethnicities",
+          component: () => import("../modules/home/views/ethnic_groups/Ethnic_GroupsView.vue"),
+        },
+        {
+          name: "Schools",
+          path: "schools",
+          component: () => import("../modules/home/views/schools/SchoolsView.vue"),
+        }
+        
       ],
     },
     {
