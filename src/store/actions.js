@@ -207,6 +207,7 @@ export default {
       const URL = `${state.url_linked_academy}/specialities`;
       const { data } = await privateHttp.get(URL);
       commit("SET_SPECIALITIES", data);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -251,6 +252,7 @@ export default {
       const URL = `${state.url_linked_academy}/disabilities`;
       const { data } = await privateHttp.get(URL);
       commit("SET_DISABILITIES", data);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -347,7 +349,7 @@ export default {
       throw error;
     }
   },
-  async DELETE_EDUCATIONAL_MODEL({ state },  educationalModel ) {
+  async DELETE_EDUCATIONAL_MODEL({ state }, educationalModel) {
     try {
       const URL = `${state.url_linked_academy}/education-modes/${educationalModel}`;
       const { data } = await privateHttp.delete(URL);
@@ -361,6 +363,7 @@ export default {
       const URL = `${state.url_linked_academy}/grades`;
       const { data } = await privateHttp.get(URL);
       commit("SET_GRADES", data);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -397,6 +400,7 @@ export default {
       const URL = `${state.url_linked_academy}/schedules`;
       const { data } = await privateHttp.get(URL);
       commit("SET_SCHEDULES", data);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -433,19 +437,19 @@ export default {
       const URL = `${state.url_linked_academy}/sessions`;
       const { data } = await privateHttp.get(URL);
       commit("SET_SESSIONS", data);
+      return data;
     } catch (error) {
       throw error;
     }
   },
   async CREATE_SESSION({ state }, session) {
     try {
-      console.log(session);
       const URL = `${state.url_linked_academy}/sessions`;
       const { data } = await privateHttp.post(URL, {
         name: session,
       });
       toast.success("Sesión creada correctamente");
-      console.log(data);
+
       return data;
     } catch (error) {
       toast.error("Error al crear sesión");
@@ -478,6 +482,7 @@ export default {
       const URL = `${state.url_linked_academy}/languages`;
       const { data } = await privateHttp.get(URL);
       commit("SET_LANGUAGES", data);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -544,6 +549,90 @@ export default {
       const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
+      throw error;
+    }
+  },
+  async GET_SCHOOLS_BY_ID_CITY({ state, commit }, payload) {
+    const cityId = state.userData.cityId;
+    try {
+      const URL = `${state.url_linked_academy}/schools/per-city/${cityId}`;
+
+      const { data } = await privateHttp.get(URL, {
+        params: {
+          page: 1,
+          limit: 10,
+        },
+      });
+      commit("SET_SCHOOLS_BY_CITY", data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+  async GET_MORE_SCHOOLS_BY_ID_CITY({ state, commit }, payload) {
+    const cityId = state.userData.cityId;
+
+    try {
+      const URL = `${state.url_linked_academy}/schools/per-city/${cityId}`;
+
+      const { data } = await privateHttp.get(URL, {
+        params: {
+          page: payload.page,
+          limit: 10,
+        },
+      });
+      commit("SET_SCHOOLS_BY_CITY", data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+  async CREATE_SCHOOL({ state }, school) {
+    const cityId = state.userData.cityId;
+    school.cityId = cityId;
+    try {
+      const URL = `${state.url_linked_academy}/schools`;
+      const { data } = await privateHttp.post(URL, school);
+      toast.success("Institucion creada con exito");
+      return data;
+    } catch (error) {
+      toast.error("Error al crear institucion");
+      throw error;
+    }
+  },
+  async GET_SCHOOL_ADITIONAL_INFO({ state, commit }, payload) {
+    console.log(payload);
+    try {
+      const URL = `${state.url_linked_academy}/schools/additional-info`;
+      const { data } = await privateHttp.get(URL, {
+        params: payload,
+      });
+      commit("SET_RELATIONS", data);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async GET_ALL_PARAMETERS({ state, commit, dispatch }, { ruteName }) {
+    console.log(ruteName);
+    try {
+      const data = await dispatch(`${ruteName}`);
+      commit("SET_PARAMETERS", data);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async PUT_ACTIVE_DESACTIVE_PARAMETER({ state }, { payload }) {
+    try {
+      const URL = `${state.url_linked_academy}/schools/additional-info/activate-deactivate?activate=${payload.active}`;
+      const { data } = await privateHttp.put(URL, payload);
+      toast.success("Estado actualizado correctamente");
+      return data;
+    } catch (error) {
+      toast.error("Error al actualizar estado");
       throw error;
     }
   },

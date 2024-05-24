@@ -111,7 +111,7 @@ const store = useStore();
 const educationalModelName = ref("");
 
 const createEducationalModel = async () => {
-    console.log(educationalModelName.value)
+
   try {
     if (educationalModelName.value.length === 0)
       return toast.error("El nombre del modelo de educacion no puede estar vacío");
