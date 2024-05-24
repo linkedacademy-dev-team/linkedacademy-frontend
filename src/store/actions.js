@@ -109,7 +109,6 @@ export default {
     }
   },
   async UPDATE_SCHOOLS_FILTERS({ state, commit }, { filters }) {
-
     const filterData = {
       cityId: 1070,
       distance: filters.range ? filters.range : 4.3,
@@ -198,7 +197,6 @@ export default {
     try {
       const URL = `${state.url_linked_academy}/permissions`;
       const { data } = await privateHttp.get(URL);
-
       return data;
     } catch (error) {
       throw error;
@@ -209,7 +207,6 @@ export default {
       const URL = `${state.url_linked_academy}/specialities`;
       const { data } = await privateHttp.get(URL);
       commit("SET_SPECIALITIES", data);
-
     } catch (error) {
       throw error;
     }
@@ -227,7 +224,6 @@ export default {
     }
   },
   async UPDATE_SPECIALITY({ state }, speciality) {
-
     try {
       const URL = `${state.url_linked_academy}/specialities/${speciality.id}`;
       const { data } = await privateHttp.put(URL, {
@@ -240,7 +236,6 @@ export default {
     }
   },
   async DELETE_SPECIALITY({ state }, speciality) {
-
     try {
       const URL = `${state.url_linked_academy}/specialities/${speciality}`;
       const { data } = await privateHttp.delete(URL);
@@ -254,7 +249,7 @@ export default {
   async GET_DISABILITIES({ state, commit }) {
     try {
       const URL = `${state.url_linked_academy}/disabilities`;
-      const { data } = await http.get(URL);
+      const { data } = await privateHttp.get(URL);
       commit("SET_DISABILITIES", data);
     } catch (error) {
       throw error;
@@ -263,7 +258,7 @@ export default {
   async CREATE_DISABILITY({ state }, { disability }) {
     try {
       const URL = `${state.url_linked_academy}/disabilities`;
-      const { data } = await http.post(URL, disability);
+      const { data } = await privateHttp.post(URL, disability);
       return data;
     } catch (error) {
       throw error;
@@ -272,7 +267,7 @@ export default {
   async UPDATE_DISABILITY({ state }, { disability }) {
     try {
       const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
-      const { data } = await http.put(URL, disability);
+      const { data } = await privateHttp.put(URL, disability);
       return data;
     } catch (error) {
       throw error;
@@ -281,7 +276,7 @@ export default {
   async DELETE_DISABILITY({ state }, { disability }) {
     try {
       const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
-      const { data } = await http.delete(URL);
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
@@ -289,8 +284,8 @@ export default {
   },
   async GET_EDUCATION_LEVELS({ state, commit }) {
     try {
-      const URL = `${state.url_linked_academy}/education_levels`;
-      const { data } = await http.get(URL);
+      const URL = `${state.url_linked_academy}/education-levels`;
+      const { data } = await privateHttp.get(URL);
       commit("SET_EDUCATION_LEVELS", data);
     } catch (error) {
       throw error;
@@ -298,8 +293,8 @@ export default {
   },
   async CREATE_EDUCATION_LEVEL({ state }, { educationLevel }) {
     try {
-      const URL = `${state.url_linked_academy}/education_levels`;
-      const { data } = await http.post(URL, educationLevel);
+      const URL = `${state.url_linked_academy}/education-levels`;
+      const { data } = await privateHttp.post(URL, educationLevel);
       return data;
     } catch (error) {
       throw error;
@@ -307,8 +302,8 @@ export default {
   },
   async UPDATE_EDUCATION_LEVEL({ state }, { educationLevel }) {
     try {
-      const URL = `${state.url_linked_academy}/education_levels/${educationLevel.id}`;
-      const { data } = await http.put(URL, educationLevel);
+      const URL = `${state.url_linked_academy}/education-levels/${educationLevel.id}`;
+      const { data } = await privateHttp.put(URL, educationLevel);
       return data;
     } catch (error) {
       throw error;
@@ -316,8 +311,8 @@ export default {
   },
   async DELETE_EDUCATION_LEVEL({ state }, { educationLevel }) {
     try {
-      const URL = `${state.url_linked_academy}/education_levels/${educationLevel.id}`;
-      const { data } = await http.delete(URL);
+      const URL = `${state.url_linked_academy}/education-levels/${educationLevel.id}`;
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
@@ -325,17 +320,19 @@ export default {
   },
   async GET_EDUCATIONAL_MODELS({ state, commit }) {
     try {
-      const URL = `${state.url_linked_academy}/educational_models`;
-      const { data } = await http.get(URL);
+      const URL = `${state.url_linked_academy}/education-modes`;
+      const { data } = await privateHttp.get(URL);
       commit("SET_EDUCATIONAL_MODELS", data);
     } catch (error) {
       throw error;
     }
   },
-  async CREATE_EDUCATIONAL_MODEL({ state }, { educationalModel }) {
+  async CREATE_EDUCATIONAL_MODEL({ state }, educationalModel) {
     try {
-      const URL = `${state.url_linked_academy}/educational_models`;
-      const { data } = await http.post(URL, educationalModel);
+      const URL = `${state.url_linked_academy}/education-modes`;
+      const { data } = await privateHttp.post(URL, {
+        name: educationalModel,
+      });
       return data;
     } catch (error) {
       throw error;
@@ -343,17 +340,17 @@ export default {
   },
   async UPDATE_EDUCATIONAL_MODEL({ state }, { educationalModel }) {
     try {
-      const URL = `${state.url_linked_academy}/educational_models/${educationalModel.id}`;
-      const { data } = await http.put(URL, educationalModel);
+      const URL = `${state.url_linked_academy}/education-modes/${educationalModel.id}`;
+      const { data } = await privateHttp.put(URL, educationalModel);
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async DELETE_EDUCATIONAL_MODEL({ state }, { educationalModel }) {
+  async DELETE_EDUCATIONAL_MODEL({ state },  educationalModel ) {
     try {
-      const URL = `${state.url_linked_academy}/educational_models/${educationalModel.id}`;
-      const { data } = await http.delete(URL);
+      const URL = `${state.url_linked_academy}/education-modes/${educationalModel}`;
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
@@ -362,7 +359,7 @@ export default {
   async GET_GRADES({ state, commit }) {
     try {
       const URL = `${state.url_linked_academy}/grades`;
-      const { data } = await http.get(URL);
+      const { data } = await privateHttp.get(URL);
       commit("SET_GRADES", data);
     } catch (error) {
       throw error;
@@ -371,7 +368,7 @@ export default {
   async CREATE_GRADE({ state }, { grade }) {
     try {
       const URL = `${state.url_linked_academy}/grades`;
-      const { data } = await http.post(URL, grade);
+      const { data } = await privateHttp.post(URL, grade);
       return data;
     } catch (error) {
       throw error;
@@ -380,7 +377,7 @@ export default {
   async UPDATE_GRADE({ state }, { grade }) {
     try {
       const URL = `${state.url_linked_academy}/grades/${grade.id}`;
-      const { data } = await http.put(URL, grade);
+      const { data } = await privateHttp.put(URL, grade);
       return data;
     } catch (error) {
       throw error;
@@ -389,7 +386,7 @@ export default {
   async DELETE_GRADE({ state }, { grade }) {
     try {
       const URL = `${state.url_linked_academy}/grades/${grade.id}`;
-      const { data } = await http.delete(URL);
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
@@ -398,7 +395,7 @@ export default {
   async GET_SCHEDULES({ state, commit }) {
     try {
       const URL = `${state.url_linked_academy}/schedules`;
-      const { data } = await http.get(URL);
+      const { data } = await privateHttp.get(URL);
       commit("SET_SCHEDULES", data);
     } catch (error) {
       throw error;
@@ -407,7 +404,7 @@ export default {
   async CREATE_SCHEDULE({ state }, { schedule }) {
     try {
       const URL = `${state.url_linked_academy}/schedules`;
-      const { data } = await http.post(URL, schedule);
+      const { data } = await privateHttp.post(URL, schedule);
       return data;
     } catch (error) {
       throw error;
@@ -416,7 +413,7 @@ export default {
   async UPDATE_SCHEDULE({ state }, { schedule }) {
     try {
       const URL = `${state.url_linked_academy}/schedules/${schedule.id}`;
-      const { data } = await http.put(URL, schedule);
+      const { data } = await privateHttp.put(URL, schedule);
       return data;
     } catch (error) {
       throw error;
@@ -425,43 +422,7 @@ export default {
   async DELETE_SCHEDULE({ state }, { schedule }) {
     try {
       const URL = `${state.url_linked_academy}/schedules/${schedule.id}`;
-      const { data } = await http.delete(URL);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async GET_LANGUAGES({ state, commit }) {
-    try {
-      const URL = `${state.url_linked_academy}/languages`;
-      const { data } = await http.get(URL);
-      commit("SET_LANGUAGES", data);
-    } catch (error) {
-      throw error;
-    }
-  },
-  async CREATE_LANGUAGE({ state }, { language }) {
-    try {
-      const URL = `${state.url_linked_academy}/languages`;
-      const { data } = await http.post(URL, language);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async UPDATE_LANGUAGE({ state }, { language }) {
-    try {
-      const URL = `${state.url_linked_academy}/languages/${language.id}`;
-      const { data } = await http.put(URL, language);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async DELETE_LANGUAGE({ state }, { language }) {
-    try {
-      const URL = `${state.url_linked_academy}/languages/${language.id}`;
-      const { data } = await http.delete(URL);
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
@@ -470,43 +431,117 @@ export default {
   async GET_SESSIONS({ state, commit }) {
     try {
       const URL = `${state.url_linked_academy}/sessions`;
-      const { data } = await http.get(URL);
+      const { data } = await privateHttp.get(URL);
       commit("SET_SESSIONS", data);
     } catch (error) {
       throw error;
     }
   },
-  async CREATE_SESSION({ state }, { session }) {
+  async CREATE_SESSION({ state }, session) {
     try {
+      console.log(session);
       const URL = `${state.url_linked_academy}/sessions`;
-      const { data } = await http.post(URL, session);
+      const { data } = await privateHttp.post(URL, {
+        name: session,
+      });
+      toast.success("Sesión creada correctamente");
+      console.log(data);
       return data;
     } catch (error) {
+      toast.error("Error al crear sesión");
+      console.log(error);
       throw error;
     }
   },
-  async UPDATE_SESSION({ state }, { session }) {
+  async UPDATE_SESSION({ state }, session) {
     try {
       const URL = `${state.url_linked_academy}/sessions/${session.id}`;
-      const { data } = await http.put(URL, session);
+      const { data } = await privateHttp.put(URL, {
+        name: session.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async DELETE_SESSION({ state }, { session }) {
+  async DELETE_SESSION({ state }, session) {
     try {
-      const URL = `${state.url_linked_academy}/sessions/${session.id}`;
-      const { data } = await http.delete(URL);
+      const URL = `${state.url_linked_academy}/sessions/${session}`;
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;
     }
   },
+  async GET_LANGUAGES({ state, commit }) {
+    try {
+      const URL = `${state.url_linked_academy}/languages`;
+      const { data } = await privateHttp.get(URL);
+      commit("SET_LANGUAGES", data);
+    } catch (error) {
+      throw error;
+    }
+  },
+  async CREATE_LANGUAGE({ state }, { language }) {
+    try {
+      const URL = `${state.url_linked_academy}/languages`;
+      const { data } = await privateHttp.post(URL, language);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async UPDATE_LANGUAGE({ state }, { language }) {
+    try {
+      const URL = `${state.url_linked_academy}/languages/${language.id}`;
+      const { data } = await privateHttp.put(URL, language);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async DELETE_LANGUAGE({ state }, { language }) {
+    try {
+      const URL = `${state.url_linked_academy}/languages/${language.id}`;
+      const { data } = await privateHttp.delete(URL);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   async GET_ETHNIC_GROUPS({ state, commit }) {
     try {
       const URL = `${state.url_linked_academy}/ethnic-groups`;
-      const { data } = await http.get(URL);
+      const { data } = await privateHttp.get(URL);
+      commit("SET_ETHNIC_GROUPS", data);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async CREATE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
+    try {
+      const URL = `${state.url_linked_academy}/ethnic-groups`;
+      const { data } = await privateHttp.post(URL, ethnicGroup);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async UPDATE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
+    try {
+      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup.id}`;
+      const { data } = await privateHttp.put(URL, ethnicGroup);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async DELETE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
+    try {
+      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup.id}`;
+      const { data } = await privateHttp.delete(URL);
       return data;
     } catch (error) {
       throw error;

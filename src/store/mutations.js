@@ -29,6 +29,24 @@ export default {
   SET_SPECIALITIES(state, specialities) {
     state.specialities = specialities;
   },
+  SET_DISABILITIES(state, disabilities) {
+    state.disabilities = disabilities;
+  },
+  SET_SESSIONS(state, sessions) {
+    state.sessions = sessions;
+  },
+  SET_EDUCATIONAL_MODELS(state, educationalModels) {
+    state.educational_models = educationalModels;
+  },
+  SET_EDUCATION_LEVELS(state, educationLevels) {
+    state.education_levels = educationLevels;
+  },
+  SET_ETHNIC_GROUPS(state, ethnicGroups) {
+    state.ethnic_groups = ethnicGroups;
+  },
+  SET_LANGUAGES(state, languages) {
+    state.languages = languages;
+  },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
   }
