@@ -53,9 +53,14 @@
                 <div class="flex h-16 shrink-0 items-center">
                   <img
                     class="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
                     alt="Your Company"
                   />
+                  <div>
+                    <h1 class="font-semibold ml-4 text-lg text-white">
+                      Linked Academy
+                    </h1>
+                  </div>
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -99,9 +104,14 @@
         <div class="flex h-16 shrink-0 items-center">
           <img
             class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+            src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
             alt="Your Company"
           />
+          <div>
+            <h1 class="font-semibold ml-4 text-lg text-white">
+              Linked Academy
+            </h1>
+          </div>
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -134,7 +144,7 @@
 
     <div class="lg:pl-72">
       <div
-        class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-600 bg-gray px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
+        class="sticky bg-gray-800 top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-600 bg-gray px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
       >
         <button
           type="button"
@@ -144,7 +154,7 @@
           <span class="sr-only">Open sidebar</span>
           <Bars3Icon class="h-6 w-6" aria-hidden="true" />
         </button>
-        <div class="h-6 w-px lg:hidden" aria-hidden="true" />
+        <div class="h-6 w-px lg:hidden" />
         <div class="flex flex-1 justify-end gap-x-4 self-stretch lg:gap-x-6">
           <div class="flex items-center gap-x-4 lg:gap-x-6">
             <button
@@ -163,14 +173,15 @@
                 <span class="sr-only">Open user menu</span>
                 <img
                   class="h-8 w-8 rounded-full bg-gray-50"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
                   alt=""
                 />
                 <span class="hidden lg:flex lg:items-center">
                   <span
                     class="ml-4 text-sm font-semibold leading-6 text-white"
                     aria-hidden="true"
-                    >{{ userData?.firstName+' '}}{{ userData?.lastName }}</span
+                    >{{ userData?.firstName + " "
+                    }}{{ userData?.lastName }}</span
                   >
                   <ChevronDownIcon
                     class="ml-2 h-5 w-5 text-gray-400"
@@ -214,7 +225,6 @@
       <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="min-h-full">
-          
             <router-view />
           </div>
         </div>
@@ -274,12 +284,6 @@ const navigation = ref([
     current: false,
   },
   { name: "Jornadas", href: "Schedule", icon: CalendarIcon, current: false },
-  {
-    name: "Grados",
-    href: "Grades",
-    icon: DocumentDuplicateIcon,
-    current: false,
-  },
   {
     name: "Modelos educativos",
     href: "Educational_Models",
