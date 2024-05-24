@@ -5,7 +5,9 @@
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-              <h1 class="text-base font-semibold leading-6 text-white">Discapacidades</h1>
+              <h1 class="text-base font-semibold leading-6 text-white">
+                Discapacidades
+              </h1>
               <p class="mt-2 text-sm text-gray-300">
                 Una lista de discapacidades.
               </p>
@@ -37,51 +39,44 @@
                         scope="col"
                         class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                       >
-                        Title
+                        Creado
                       </th>
                       <th
                         scope="col"
                         class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                       >
-                        Email
+                        Modificado
                       </th>
-                      <th
-                        scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-white"
-                      >
-                        Role
-                      </th>
+
                       <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                         <span class="sr-only">Edit</span>
                       </th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-800">
-                    <tr v-for="person in people" :key="person.email">
+                    <tr
+                      v-for="disabilities in disabilitiesData"
+                      :key="disabilities.id"
+                    >
                       <td
                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"
                       >
-                        {{ person.name }}
+                        {{ disabilities?.name }}
                       </td>
                       <td
                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
                       >
-                        {{ person.title }}
+                        {{ disabilities?.createdAt }}
                       </td>
                       <td
                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
                       >
-                        {{ person.email }}
-                      </td>
-                      <td
-                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
-                      >
-                        {{ person.role }}
+                        {{ disabilities.updatedAt }}
                       </td>
                       <td
                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                       >
-                      <div class="text-indigo-400 hover:text-indigo-300">
+                        <div class="text-indigo-400 hover:text-indigo-300">
                           <span class="flex flex-grow space-x-4"
                             ><button
                               @click="openEditSpecialities(specialities)"
@@ -107,14 +102,16 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  // More people...
-];
+
+const store = useStore();
+
+
+const disabilitiesData = computed(() => store.state.disabilities);
+
+onMounted(async () => {
+  await store.dispatch("GET_DISABILITIES");
+});
 </script>
