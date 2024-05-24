@@ -16,4 +16,18 @@ const authInterceptor = (config) => {
 
 http.interceptors.request.use(authInterceptor);
 
+const tokenInterceptor = (config) => {
+  config.headers.Authorization = `Bearer ${state.authToken}`;
+  return config;
+};
+
+export const privateHttp = axios.create({
+  baseURL: state.url_linked_academy,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+privateHttp.interceptors.request.use(tokenInterceptor);
+
 export default http;

@@ -5,7 +5,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-10 w-auto"
-        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+        src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
         alt="Your Company"
       />
       <h2
@@ -117,11 +117,7 @@ const loginUser = async () => {
   }
 };
 
-const toRegister = () => {
-  router.push({
-    name: "Register",
-  });
-};
+
 </script>
 
 <style></style>

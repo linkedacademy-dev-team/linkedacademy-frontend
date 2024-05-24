@@ -32,7 +32,6 @@ const getUbication = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        console.log(pos.coords.latitude, pos.coords.longitude);
         const coordinates = [pos.coords.latitude, pos.coords.longitude];
         store.commit("SET_GEOLOCATION", { coordinates });
       },

@@ -5,7 +5,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-10 w-auto"
-        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+        src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
         alt="Your Company"
       />
       <h2
@@ -184,7 +184,7 @@
         Ya tienes una cuenta?
         {{ " " }}
         <router-link
-          to="/"
+          :to="{ name: 'Login' }"
           class="font-semibold leading-6 text-indigo-400 hover:text-indigo-300"
           >Ingresa con tu cuenta
         </router-link>
@@ -237,7 +237,7 @@ const registerUser = async () => {
   const user = {
     ...userData.value,
     cityId: citySelected.value,
-    coordinates: null,
+    coordinates:  null,
   };
   try {
     await store.dispatch("REGISTER_USER", { user });
