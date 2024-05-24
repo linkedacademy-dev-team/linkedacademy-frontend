@@ -49,5 +49,14 @@ export default {
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
-  }
+  },
+  SET_SCHOOLS_BY_CITY(state, schools) {
+    state.schooldsByCity = schools;
+  },
+  SET_RELATIONS(state, relations) {
+    state.relations = relations;
+  },
+  SET_PARAMETERS(state, parameters) {
+    state.parameters = parameters;
+  },
 };

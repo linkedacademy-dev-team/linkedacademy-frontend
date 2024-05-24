@@ -24,4 +24,7 @@ export default {
   sessions: [],
   ethnic_groups: [],
   userData: null,
+  schooldsByCity: [],
+  relations: [],
+  parameters: [],
 };

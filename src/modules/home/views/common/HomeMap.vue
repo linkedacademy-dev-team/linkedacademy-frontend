@@ -164,11 +164,11 @@
                     alt="school"
                   />
                 </div>
-                <h1 class="text-sm  font-semibold">{{ coord.name }}</h1>
-                <p class="text-xs">{{ coord?.address }}</p>
-                <p class="text-xs">{{ coord?.phone }}</p>
-                <p class="text-xs">{{ coord?.email }}</p>
-                <p class="text-xs">{{ Number((coord?.distance).toFixed(2))  }} Km</p>
+                <h1 class="text-sm  font-semibold">🏫{{ coord.name }}</h1>
+                <p class="text-xs">🔤{{ coord?.address }}</p>
+                <p class="text-xs">📱{{ coord?.phone }}</p>
+                <p class="text-xs">📧{{ coord?.email }}</p>
+                <p class="text-xs">🚶‍♂️ {{ Number((coord?.distance).toFixed(2))  }} Km</p>
   
               </div>
             </LTooltip></l-marker
