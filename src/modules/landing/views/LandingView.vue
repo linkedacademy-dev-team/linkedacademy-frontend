@@ -67,8 +67,8 @@
             class="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8"
           >
             <img
-              class="h-11"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=500"
+              class="h-16 w-auto"
+              src="https://res.cloudinary.com/dkqaprz9w/image/upload/v1716533698/icons8-map-marker-100_fsvoae.png"
               alt="Your Company"
             />
             <!-- <div class="mt-24 sm:mt-32 lg:mt-16">
@@ -110,11 +110,14 @@
                 </p>
               </router-link>
               <router-link
-                :to="{
-                  name: 'Login',
-                }"
-              >
-              </router-link>
+              :to="{
+                name: 'Login',
+              }"
+            >
+              <p class="text-sm font-semibold leading-6 text-white">
+                Inicia sesion <span aria-hidden="true">→</span>
+              </p>
+            </router-link>
             </div>
             <div v-else class="mt-10 flex items-center gap-x-6">
               <router-link
