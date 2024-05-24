@@ -6,10 +6,10 @@
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
               <h1 class="text-base font-semibold leading-6 text-white">
-                Grupos etnicos
+                Discapacidades
               </h1>
               <p class="mt-2 text-sm text-gray-300">
-                Una lista de grupos etnicos.
+                Una lista de discapacidades.
               </p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -17,7 +17,7 @@
                 type="button"
                 class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Añadir grupo etnico
+                Añadir discapacidad
               </button>
             </div>
           </div>
@@ -54,31 +54,29 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-800">
-                    <tr v-for="person in people" :key="person.email">
+                    <tr
+                      v-for="ethnicGroup in ethnicGroupsData"
+                      :key="ethnicGroup.id"
+                    >
                       <td
                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"
                       >
-                        {{ person.name }}
+                        {{ ethnicGroup?.name }}
                       </td>
                       <td
                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
                       >
-                        {{ person.title }}
+                        {{ ethnicGroup?.createdAt }}
                       </td>
                       <td
                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
                       >
-                        {{ person.email }}
-                      </td>
-                      <td
-                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
-                      >
-                        {{ person.role }}
+                        {{ ethnicGroup.updatedAt }}
                       </td>
                       <td
                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                       >
-                      <div class="text-indigo-400 hover:text-indigo-300">
+                        <div class="text-indigo-400 hover:text-indigo-300">
                           <span class="flex flex-grow space-x-4"
                             ><button
                               @click="openEditSpecialities(specialities)"
@@ -90,7 +88,6 @@
                             </button>
                           </span>
                         </div>
-                        
                       </td>
                     </tr>
                   </tbody>
@@ -105,14 +102,16 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  // More people...
-];
+
+const store = useStore();
+
+
+const ethnicGroupsData = computed(() => store.state.ethnic_groups);
+
+onMounted(async () => {
+  await store.dispatch("GET_ETHNIC_GROUPS");
+});
 </script>
