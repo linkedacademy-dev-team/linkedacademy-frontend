@@ -100,7 +100,22 @@
           />
         </div>
       </div>
-      <div class="sm:w-[30%] w-auto mt-10">
+      <div class="relative flex mb-16 sm:mb-0">
+        <div class="absolute right-0">
+          <Button
+            @click="clearFilters"
+            :class="{
+              'bg-red-300 cursor-not-allowed': !areFiltersActive,
+              'bg-red-400': areFiltersActive,
+            }"
+            class="w-40 h-10 mt-4 flex items-center my-auto text-white px-2 py-2"
+            label="Limpiar filtros"
+            severity="secondary"
+            raised
+          />
+        </div>
+      </div>
+      <div class="sm:w-[30%] justify-between w-auto mt-10">
         <label
           for="slider"
           class="block mb-4 text-base font-medium leading-6 text-white"
@@ -130,23 +145,41 @@
           layer-type="base"
           name="OpenStreetMap"
         ></l-tile-layer>
-        <LCircle :lat-lng="coordinates" :radius="sliderValue * 1000"></LCircle>
-        <l-marker :icon="customIcon" :lat-lng="coordinates"
-          ><LTooltip></LTooltip
-        ></l-marker>
+        <LCircle v-if="circleReady" :lat-lng="coordinates" :radius="sliderValue * 1000"></LCircle>
+        <l-marker :icon="customIcon" :lat-lng="coordinates"></l-marker>
         <l-marker
           v-for="coord in visibleMarkers"
           :key="coord.id"
           :lat-lng="coord.coordinates"
           :icon="schoolIcon"
-          ><LTooltip></LTooltip
-        ></l-marker>
+          ><LTooltip class="rounded p-2 " :direction="top">
+            <div class="w-auto space-y-0.5 text-center h-auto flex-col">
+              <div class="flex justify-center mx-auto">
+                <img
+                  class="w-20 h-16 justify-center rounded items-center object-cover "
+                  :src="
+                    coord.image ||
+                    'https://res.cloudinary.com/dkqaprz9w/image/upload/v1716540635/Colegio_bolivia_ch8tlt.jpg'
+                  "
+                  alt="school"
+                />
+              </div>
+              <h1 class="text-sm  font-semibold">{{ coord.name }}</h1>
+              <p class="text-xs">{{ coord?.address }}</p>
+              <p class="text-xs">{{ coord?.phone }}</p>
+              <p class="text-xs">{{ coord?.email }}</p>
+              <p class="text-xs">{{ Number((coord?.distance).toFixed(2))  }} Km</p>
+
+            </div>
+          </LTooltip></l-marker
+        >
       </l-map>
     </div>
   </div>
 </template>
 
 <script setup>
+import Button from "primevue/button";
 import Slider from "primevue/slider";
 import Checkbox from "primevue/checkbox";
 import Dropdown from "primevue/dropdown";
@@ -163,6 +196,7 @@ const sliderValue = ref(3);
 const zoom = ref();
 const store = useStore();
 const radius = 10;
+const circleReady = ref(false);
 
 const customIcon = L.icon({
   iconUrl: "https://img.icons8.com/3d-fluency/94/person-male--v6.png",
@@ -265,8 +299,8 @@ const updateFacilities = () => {
   updateFilters();
 };
 
-onMounted(() => {
-  store.dispatch("GET_SCHOOLS");
+onMounted(async () => {
+  await store.dispatch("GET_SCHOOLS");
 });
 
 let timer = null;
@@ -292,6 +326,32 @@ const updateFilters = () => {
   });
 };
 
+const clearFilters = () => {
+  filters.value = {
+    selectedZone: "",
+    selectedSchedule: "",
+    typeofSchool: "",
+    genderofSchool: "",
+    selectedFacilities: [],
+  };
+  sliderValue.value = 3;
+  sliderStudentsPerClass.value = 20;
+  selectedFacilities.value = [];
+  updateFilters();
+};
+
+const areFiltersActive = computed(() => {
+  return (
+    filters.value.selectedZone ||
+    filters.value.selectedSchedule ||
+    filters.value.typeofSchool ||
+    filters.value.genderofSchool ||
+    selectedFacilities.value.length > 0 ||
+    sliderValue.value !== 3 ||
+    sliderStudentsPerClass.value !== 20
+  );
+});
+
 const schools = ref([]);
 
 const coordinates = computed(() => store.state.geolocation.coordinates);
@@ -299,6 +359,7 @@ const schoolsData = computed(() => store.state.schools.schools);
 
 watchEffect(() => {
   schools.value = schoolsData.value;
+  circleReady.value = true;
 });
 
 const visibleMarkers = computed(() => {
@@ -323,4 +384,8 @@ const existCoordinates = computed(() => {
 });
 </script>
 
-<style></style>
+<style scoped>
+.p-dropdown {
+  min-width: 200px;
+}
+</style>
