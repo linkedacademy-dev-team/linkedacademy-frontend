@@ -161,7 +161,7 @@ const closeAddSpecialities = () => {
 
 const specialitiesData = computed(() => store.state.specialities);
 
-onMounted(() => {
-  store.dispatch("GET_SPECIALITIES");
+onMounted(async() => {
+  await store.dispatch("GET_SPECIALITIES");
 });
 </script>
