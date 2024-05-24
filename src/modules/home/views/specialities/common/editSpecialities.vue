@@ -108,7 +108,6 @@ import { PlusCircleIcon,PencilIcon, XMarkIcon } from "@heroicons/vue/24/outline"
 import { Toaster, toast } from "vue-sonner";
 
 const store = useStore();
-const specialitieName = ref("");
 
 const editSpecialitie = async () => {
   try {
