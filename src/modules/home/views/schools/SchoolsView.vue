@@ -83,13 +83,13 @@
                       <td
                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                       >
-                        <div class="text-indigo-400 ">
+                        <div class="text-indigo-400">
                           <span class="flex flex-grow space-x-4"
-                            ><button class="hover:text-indigo-300" @click="openEditSchool(school)">
+                            ><button
+                              class="hover:text-indigo-300"
+                              @click="openEditSchool(school)"
+                            >
                               <PencilSquareIcon class="w-6 h-6" />
-                            </button>
-                            <button class="hover:text-indigo-300" @click="deleteSpecialitie(school.id)">
-                              <TrashIcon class="w-6 h-6" />
                             </button>
                           </span>
                         </div>
@@ -184,12 +184,14 @@ const closeNewSchool = () => {
 };
 
 const openEditSchool = (school) => {
-  console.log(school)
+  console.log(school);
   editSchoolModal.value = true;
   schoolData.value = school;
 };
-const closeEditSchool = () => {
+const closeEditSchool = async () => {
   editSchoolModal.value = false;
+  await store.dispatch("GET_USER");
+  await getSchools();
 };
 
 watch(paginationData, (newValue) => {
@@ -223,8 +225,6 @@ const getPreviousPage = async () => {
 const getAllRelationsContentInfo = async () => {
   await store.dispatch("GET_SPECIALITIES");
 };
-
-
 
 onMounted(async () => {
   await nextTick();
