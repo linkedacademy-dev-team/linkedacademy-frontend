@@ -257,30 +257,36 @@ export default {
       throw error;
     }
   },
-  async CREATE_DISABILITY({ state }, { disability }) {
+  async CREATE_DISABILITY({ state }, disability) {
     try {
       const URL = `${state.url_linked_academy}/disabilities`;
-      const { data } = await privateHttp.post(URL, disability);
+      const { data } = await privateHttp.post(URL, {
+        name: disability,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async UPDATE_DISABILITY({ state }, { disability }) {
+  async UPDATE_DISABILITY({ state }, disability) {
     try {
       const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
-      const { data } = await privateHttp.put(URL, disability);
+      const { data } = await privateHttp.put(URL, {
+        name: disability.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async DELETE_DISABILITY({ state }, { disability }) {
+  async DELETE_DISABILITY({ state }, disability) {
     try {
-      const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
+      const URL = `${state.url_linked_academy}/disabilities/${disability}`;
       const { data } = await privateHttp.delete(URL);
+      toast.success("Discapacidad eliminada correctamente");
       return data;
     } catch (error) {
+      toast.error("Error al eliminar discapacidad");
       throw error;
     }
   },
