@@ -77,16 +77,16 @@
                       <td
                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                       >
-                        <div class="text-indigo-400 hover:text-indigo-300">
+                        <div class="text-indigo-400 ">
                           <span class="flex flex-grow space-x-4"
-                            ><button
+                            ><button class="hover:text-indigo-300"
                               @click="
                                 openEditEducationalModel(educationalModel)
                               "
                             >
                               <PencilSquareIcon class="w-6 h-6" />
                             </button>
-                            <button
+                            <button class="hover:text-indigo-300"
                               @click="
                                 deleteEducationalModel(educationalModel.id)
                               "
@@ -106,6 +106,11 @@
       </div>
     </div>
   </div>
+  <editEducationalModel
+    :open="editEducational"
+    :educationalModel="educationModelSelected"
+    @close-edit="closeEditEducationalModel"
+  />
   <AddEducationalModel
     :open="addEducationalModel"
     @close-add="closeAddEducationalModel"
@@ -117,18 +122,19 @@ import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
 import AddEducationalModel from "./common/AddEducationalModel.vue";
+import editEducationalModel from "./common/EditEducationModel.vue";
 
 const addEducationalModel = ref(false);
-const editEducationalModel = ref(false);
+const editEducational = ref(false);
 const educationModelSelected = ref(null);
 const openAddEducationalModel = () => (addEducationalModel.value = true);
 const closeAddEducationalModel = () => (addEducationalModel.value = false);
 
 const openEditEducationalModel = (educationalModel) => {
-  addEducationalModel.value = true;
+  editEducational.value = true;
   educationModelSelected.value = educationalModel;
 };
-const closeEditEducationalModel = () => (editEducationalModel.value = false);
+const closeEditEducationalModel = () => (editEducational.value = false);
 
 const deleteEducationalModel = async (id) => {
   try {
