@@ -54,15 +54,15 @@
                     <DialogTitle
                       as="h3"
                       class="text-base mt-2 font-semibold leading-6 text-gray-900"
-                      >Editar modelo de educacion</DialogTitle
+                      >Editar discapacidad</DialogTitle
                     >
                     <div class="mt-4">
                       <label>
                         <span class="text-sm font-semibold text-gray-700"
-                          >Nombre modelo de educacion</span
+                          >Nombre de la discapacidad</span
                         >
                         <input
-                          v-model="educationalModelData.name"
+                          v-model="disabilitiesData.name"
                           type="text"
                           class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
@@ -74,9 +74,9 @@
                   <button
                     type="button"
                     class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 mr-8 sm:ml-3 sm:w-auto"
-                    @click="editeducationalModel"
+                    @click="editDisabilities"
                   >
-                    Editar modelo
+                    Editar discapacidad
                   </button>
                   <button
                     type="button"
@@ -113,16 +113,16 @@
   
   const store = useStore();
   
-  const editeducationalModel = async () => {
+  const editDisabilities = async () => {
     try {
-      await store.dispatch("UPDATE_EDUCATIONAL_MODEL", {
-        id: educationalModelData.value.id,
-        name: educationalModelData.value.name,
+      await store.dispatch("UPDATE_DISABILITY", {
+        id: disabilitiesData.value.id,
+        name: disabilitiesData.value.name,
       });
       close();
-      toast.success("Nivel de educacion editado correctamente");
+      toast.success("Discapacidad actualizada correctamente");
     } catch (error) {
-      toast.error("Error al editar el nivel de educacion");
+      toast.error("Error al actualizar la discapacidad");
     }
   };
   
@@ -130,17 +130,17 @@
     open: {
       type: Boolean,
     },
-    educationalModel: {
+    disabilities: {
       type: Object,
     },
   });
   
-  const educationalModelData = ref();
+  const disabilitiesData = ref();
   
   watch(
-    () => props.educationalModel,
+    () => props.disabilities,
     (value) => {
-      educationalModelData.value = value;
+      disabilitiesData.value = value;
     }
   );
   

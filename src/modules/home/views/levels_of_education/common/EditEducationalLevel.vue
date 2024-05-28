@@ -54,15 +54,15 @@
                     <DialogTitle
                       as="h3"
                       class="text-base mt-2 font-semibold leading-6 text-gray-900"
-                      >Editar modelo de educacion</DialogTitle
+                      >Editar nivel de educacion</DialogTitle
                     >
                     <div class="mt-4">
                       <label>
                         <span class="text-sm font-semibold text-gray-700"
-                          >Nombre modelo de educacion</span
+                          >Nombre de nivel</span
                         >
                         <input
-                          v-model="educationalModelData.name"
+                          v-model="educationalLevelData.name"
                           type="text"
                           class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
@@ -74,9 +74,9 @@
                   <button
                     type="button"
                     class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 mr-8 sm:ml-3 sm:w-auto"
-                    @click="editeducationalModel"
+                    @click="editeducationalLevel"
                   >
-                    Editar modelo
+                    Editar nivel
                   </button>
                   <button
                     type="button"
@@ -113,11 +113,11 @@
   
   const store = useStore();
   
-  const editeducationalModel = async () => {
+  const editeducationalLevel = async () => {
     try {
-      await store.dispatch("UPDATE_EDUCATIONAL_MODEL", {
-        id: educationalModelData.value.id,
-        name: educationalModelData.value.name,
+      await store.dispatch("UPDATE_EDUCATION_LEVEL", {
+        id: educationalLevelData.value.id,
+        name: educationalLevelData.value.name,
       });
       close();
       toast.success("Nivel de educacion editado correctamente");
@@ -130,17 +130,17 @@
     open: {
       type: Boolean,
     },
-    educationalModel: {
+    educationalLevel: {
       type: Object,
     },
   });
   
-  const educationalModelData = ref();
+  const educationalLevelData = ref();
   
   watch(
-    () => props.educationalModel,
+    () => props.educationalLevel,
     (value) => {
-      educationalModelData.value = value;
+      educationalLevelData.value = value;
     }
   );
   

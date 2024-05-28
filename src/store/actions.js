@@ -257,30 +257,36 @@ export default {
       throw error;
     }
   },
-  async CREATE_DISABILITY({ state }, { disability }) {
+  async CREATE_DISABILITY({ state }, disability) {
     try {
       const URL = `${state.url_linked_academy}/disabilities`;
-      const { data } = await privateHttp.post(URL, disability);
+      const { data } = await privateHttp.post(URL, {
+        name: disability,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async UPDATE_DISABILITY({ state }, { disability }) {
+  async UPDATE_DISABILITY({ state }, disability) {
     try {
       const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
-      const { data } = await privateHttp.put(URL, disability);
+      const { data } = await privateHttp.put(URL, {
+        name: disability.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async DELETE_DISABILITY({ state }, { disability }) {
+  async DELETE_DISABILITY({ state }, disability) {
     try {
-      const URL = `${state.url_linked_academy}/disabilities/${disability.id}`;
+      const URL = `${state.url_linked_academy}/disabilities/${disability}`;
       const { data } = await privateHttp.delete(URL);
+      toast.success("Discapacidad eliminada correctamente");
       return data;
     } catch (error) {
+      toast.error("Error al eliminar discapacidad");
       throw error;
     }
   },
@@ -293,30 +299,38 @@ export default {
       throw error;
     }
   },
-  async CREATE_EDUCATION_LEVEL({ state }, { educationLevel }) {
+  async CREATE_EDUCATION_LEVEL({ state }, educationLevel) {
     try {
       const URL = `${state.url_linked_academy}/education-levels`;
-      const { data } = await privateHttp.post(URL, educationLevel);
+      const { data } = await privateHttp.post(URL, {
+        name: educationLevel,
+      });
+      toast.success("Nivel de educación creado correctamente");
+      return data;
+    } catch (error) {
+      toast.error("Error al crear nivel de educación");
+      throw error;
+    }
+  },
+  async UPDATE_EDUCATION_LEVEL({ state }, educationLevel) {
+    try {
+      const URL = `${state.url_linked_academy}/education-levels/${educationLevel.id}`;
+      const { data } = await privateHttp.put(URL, {
+        name: educationLevel.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async UPDATE_EDUCATION_LEVEL({ state }, { educationLevel }) {
+  async DELETE_EDUCATION_LEVEL({ state }, educationLevel) {
     try {
-      const URL = `${state.url_linked_academy}/education-levels/${educationLevel.id}`;
-      const { data } = await privateHttp.put(URL, educationLevel);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async DELETE_EDUCATION_LEVEL({ state }, { educationLevel }) {
-    try {
-      const URL = `${state.url_linked_academy}/education-levels/${educationLevel.id}`;
+      const URL = `${state.url_linked_academy}/education-levels/${educationLevel}`;
       const { data } = await privateHttp.delete(URL);
+      toast.success("Nivel de educación eliminado correctamente");
       return data;
     } catch (error) {
+      toast.error("Error al eliminar nivel de educación");
       throw error;
     }
   },
@@ -340,10 +354,12 @@ export default {
       throw error;
     }
   },
-  async UPDATE_EDUCATIONAL_MODEL({ state }, { educationalModel }) {
+  async UPDATE_EDUCATIONAL_MODEL({ state }, educationalModel) {
     try {
       const URL = `${state.url_linked_academy}/education-modes/${educationalModel.id}`;
-      const { data } = await privateHttp.put(URL, educationalModel);
+      const { data } = await privateHttp.put(URL, {
+        name: educationalModel.name,
+      });
       return data;
     } catch (error) {
       throw error;
