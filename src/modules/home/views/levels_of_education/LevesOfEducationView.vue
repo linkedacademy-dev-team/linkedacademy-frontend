@@ -6,18 +6,19 @@
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
               <h1 class="text-base font-semibold leading-6 text-white">
-                Discapacidades
+                Niveles de educación
               </h1>
               <p class="mt-2 text-sm text-gray-300">
-                Una lista de discapacidades.
+                Una lista de niveles de educación.
               </p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
               <button
+                @click="openAddLevel"
                 type="button"
                 class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Añadir discapacidad
+                Añadir nivel educativo
               </button>
             </div>
           </div>
@@ -78,12 +79,12 @@
                       >
                         <div class="text-indigo-400 hover:text-indigo-300">
                           <span class="flex flex-grow space-x-4"
-                            ><button
-                              @click="openEditSpecialities(specialities)"
-                            >
+                            ><button @click="openEditLevel(educationalLevel)">
                               <PencilSquareIcon class="w-6 h-6" />
                             </button>
-                            <button @click="deleteSpecialitie(specialities.id)">
+                            <button
+                              @click="deleteEducationalLevel(educationalLevel.id)"
+                            >
                               <TrashIcon class="w-6 h-6" />
                             </button>
                           </span>
@@ -99,15 +100,52 @@
       </div>
     </div>
   </div>
+  <AddEducationalLevel :open="addLevel" @close-add="closeAddLevel" />
+
+  <EditEducationalLevel
+    :open="editLevel"
+    @close-edit="closeEditLevel"
+    :educationalLevel="levelSelected"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
+import AddEducationalLevel from "./common/addEducationalLevel.vue";
+import EditEducationalLevel from "./common/EditEducationalLevel.vue";
 
 const store = useStore();
 
+const addLevel = ref(false);
+const editLevel = ref(false);
+const levelSelected = ref(null);
+
+const openAddLevel = () => {
+  addLevel.value = true;
+};
+const closeAddLevel = () => {
+  addLevel.value = false;
+};
+
+const openEditLevel = (educationalLevel) => {
+  levelSelected.value = educationalLevel;
+  editLevel.value = true;
+};
+const closeEditLevel = () => {
+  editLevel.value = false;
+};
+
+const deleteEducationalLevel = async (id) => {
+  try{
+    await store.dispatch("DELETE_EDUCATION_LEVEL", id);
+    await store.dispatch("GET_EDUCATION_LEVELS");
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
 
 const educationalLevelsData = computed(() => store.state.education_levels);
 
