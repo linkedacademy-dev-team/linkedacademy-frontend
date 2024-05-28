@@ -145,18 +145,22 @@
           layer-type="base"
           name="OpenStreetMap"
         ></l-tile-layer>
-        <LCircle v-if="circleReady" :lat-lng="coordinates" :radius="sliderValue * 1000"></LCircle>
+        <LCircle
+          v-if="isCircleReady"
+          :lat-lng="coordinates"
+          :radius="sliderValue * 1000"
+        ></LCircle>
         <l-marker :icon="customIcon" :lat-lng="coordinates"></l-marker>
         <l-marker
           v-for="coord in visibleMarkers"
           :key="coord.id"
           :lat-lng="coord.coordinates"
           :icon="schoolIcon"
-          ><LTooltip class="rounded p-2 " :direction="top">
+          ><LTooltip class="rounded p-2" :direction="top">
             <div class="w-auto space-y-0.5 text-center h-auto flex-col">
               <div class="flex justify-center mx-auto">
                 <img
-                  class="w-20 h-16 justify-center rounded items-center object-cover "
+                  class="w-20 h-16 justify-center rounded items-center object-cover"
                   :src="
                     coord.image ||
                     'https://res.cloudinary.com/dkqaprz9w/image/upload/v1716540635/Colegio_bolivia_ch8tlt.jpg'
@@ -164,12 +168,13 @@
                   alt="school"
                 />
               </div>
-              <h1 class="text-sm  font-semibold">{{ coord.name }}</h1>
+              <h1 class="text-sm font-semibold">{{ coord.name }}</h1>
               <p class="text-xs">{{ coord?.address }}</p>
               <p class="text-xs">{{ coord?.phone }}</p>
               <p class="text-xs">{{ coord?.email }}</p>
-              <p class="text-xs">{{ Number((coord?.distance).toFixed(2))  }} Km</p>
-
+              <p class="text-xs">
+                {{ Number((coord?.distance).toFixed(2)) }} Km
+              </p>
             </div>
           </LTooltip></l-marker
         >
@@ -356,6 +361,14 @@ const schools = ref([]);
 
 const coordinates = computed(() => store.state.geolocation.coordinates);
 const schoolsData = computed(() => store.state.schools.schools);
+const isCircleReady = computed(() => {
+  if (coordinates.value && circleReady.value) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 
 watchEffect(() => {
   schools.value = schoolsData.value;
