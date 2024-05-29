@@ -541,30 +541,38 @@ export default {
       throw error;
     }
   },
-  async CREATE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
+  async CREATE_ETHNIC_GROUP({ state }, ethnicGroup) {
     try {
       const URL = `${state.url_linked_academy}/ethnic-groups`;
-      const { data } = await privateHttp.post(URL, ethnicGroup);
+      const { data } = await privateHttp.post(URL, {
+        name: ethnicGroup,
+      });
+      toast.success("Grupo étnico creado correctamente");
+      return data;
+    } catch (error) {
+      toast.error("Error al crear grupo étnico");
+      throw error;
+    }
+  },
+  async UPDATE_ETHNIC_GROUP({ state }, ethnicGroup) {
+    try {
+      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup.id}`;
+      const { data } = await privateHttp.put(URL, {
+        name: ethnicGroup.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async UPDATE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
+  async DELETE_ETHNIC_GROUP({ state }, ethnicGroup) {
     try {
-      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup.id}`;
-      const { data } = await privateHttp.put(URL, ethnicGroup);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async DELETE_ETHNIC_GROUP({ state }, { ethnicGroup }) {
-    try {
-      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup.id}`;
+      const URL = `${state.url_linked_academy}/ethnic-groups/${ethnicGroup}`;
       const { data } = await privateHttp.delete(URL);
+      toast.success("Grupo étnico eliminado correctamente");
       return data;
     } catch (error) {
+      toast.error("Error al eliminar grupo étnico");
       throw error;
     }
   },
