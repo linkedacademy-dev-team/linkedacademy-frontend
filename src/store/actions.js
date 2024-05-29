@@ -41,12 +41,23 @@ export default {
       throw error;
     }
   },
-  async GET_USER({ state, commit }) {
+  async GET_USER({ state, commit, dispatch }) {
     try {
       const URL = `${state.url_linked_academy}/users/profile`;
       const { data } = await privateHttp.get(URL);
       commit("SET_USER_DATA", data);
-
+      dispatch("GET_ROLE", data.id);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  async GET_ROLE({ state, commit }, user) {
+    try {
+      const URL = `${state.url_linked_academy}/roles/user/${user}`;
+      const { data } = await privateHttp.get(URL);
+      console.log(data);
+      commit("SET_ROLE", data[0].role);
       return data;
     } catch (error) {
       throw error;

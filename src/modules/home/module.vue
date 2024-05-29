@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isUserDataLoaded">
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog class="relative z-50 lg:hidden" @close="sidebarOpen = false">
         <TransitionChild
@@ -66,7 +66,7 @@
                   <ul role="list" class="flex flex-1 flex-col gap-y-7">
                     <li>
                       <ul role="list" class="-mx-2 space-y-1">
-                        <li v-for="item in navigation" :key="item.name">
+                        <li v-for="item in filteredNavigation" :key="item.name">
                           <router-link
                             :to="{ name: item.href }"
                             :class="[
@@ -117,7 +117,7 @@
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
             <li>
               <ul role="list" class="-mx-2 space-y-1">
-                <li v-for="item in navigation" :key="item.name">
+                <li v-for="item in filteredNavigation" :key="item.name">
                   <router-link
                     :to="{ name: item.href }"
                     :class="[
@@ -231,6 +231,12 @@
       </main>
     </div>
   </div>
+  <div
+    v-else
+    class="fixed inset-0 flex items-center justify-center  bg-gray-700 bg-opacity-75"
+  >
+    <p class="text-white text-xl font-semibold">Cargando...</p>
+  </div>
 </template>
 
 <script setup>
@@ -267,9 +273,12 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 const sidebarOpen = ref(false);
+const isUserDataLoaded = ref(false);
+const role = computed(() => store.state.role);
 
-onMounted(() => {
-  store.dispatch("GET_USER");
+onMounted(async () => {
+  await store.dispatch("GET_USER");
+  isUserDataLoaded.value = true;
 });
 
 const userData = computed(() => store.state.userData);
@@ -322,9 +331,18 @@ const userNavigation = [
   },
 ];
 
+const filteredNavigation = computed(() => {
+  if (role.value.id === 1) {
+    return navigation.value.filter((item) => item.name === "Home");
+  }
+  return navigation.value;
+});
+
 watchEffect(() => {
-  navigation.value.forEach((item) => {
+  filteredNavigation.value.forEach((item) => {
     item.current = route.name === item.href;
   });
 });
 </script>
+
+
