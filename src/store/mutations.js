@@ -59,4 +59,7 @@ export default {
   SET_PARAMETERS(state, parameters) {
     state.parameters = parameters;
   },
+  SET_ROLE(state, role) {
+    state.role = role;
+  },
 };

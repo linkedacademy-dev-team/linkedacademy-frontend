@@ -27,4 +27,5 @@ export default {
   schooldsByCity: [],
   relations: [],
   parameters: [],
+  role: [],
 };
