@@ -503,30 +503,38 @@ export default {
       throw error;
     }
   },
-  async CREATE_LANGUAGE({ state }, { language }) {
+  async CREATE_LANGUAGE({ state }, language) {
     try {
       const URL = `${state.url_linked_academy}/languages`;
-      const { data } = await privateHttp.post(URL, language);
+      const { data } = await privateHttp.post(URL, {
+        name: language,
+      });
+      toast.success("Idioma creado correctamente");
+      return data;
+    } catch (error) {
+      toast.error("Error al crear idioma");
+      throw error;
+    }
+  },
+  async UPDATE_LANGUAGE({ state }, language) {
+    try {
+      const URL = `${state.url_linked_academy}/languages/${language.id}`;
+      const { data } = await privateHttp.put(URL, {
+        name: language.name,
+      });
       return data;
     } catch (error) {
       throw error;
     }
   },
-  async UPDATE_LANGUAGE({ state }, { language }) {
+  async DELETE_LANGUAGE({ state }, language) {
     try {
-      const URL = `${state.url_linked_academy}/languages/${language.id}`;
-      const { data } = await privateHttp.put(URL, language);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  async DELETE_LANGUAGE({ state }, { language }) {
-    try {
-      const URL = `${state.url_linked_academy}/languages/${language.id}`;
+      const URL = `${state.url_linked_academy}/languages/${language}`;
       const { data } = await privateHttp.delete(URL);
+      toast.success("Idioma eliminado correctamente");
       return data;
     } catch (error) {
+      toast.error("Error al eliminar idioma");
       throw error;
     }
   },
@@ -627,7 +635,6 @@ export default {
     }
   },
   async GET_SCHOOL_ADITIONAL_INFO({ state, commit }, payload) {
-    console.log(payload);
     try {
       const URL = `${state.url_linked_academy}/schools/additional-info`;
       const { data } = await privateHttp.get(URL, {
@@ -640,7 +647,6 @@ export default {
     }
   },
   async GET_ALL_PARAMETERS({ state, commit, dispatch }, { ruteName }) {
-    console.log(ruteName);
     try {
       const data = await dispatch(`${ruteName}`);
       commit("SET_PARAMETERS", data);
