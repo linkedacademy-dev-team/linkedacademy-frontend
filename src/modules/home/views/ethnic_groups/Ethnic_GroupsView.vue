@@ -14,6 +14,7 @@
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
               <button
+                @click="openAddEthnicGroup"
                 type="button"
                 class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
@@ -78,12 +79,10 @@
                       >
                         <div class="text-indigo-400 hover:text-indigo-300">
                           <span class="flex flex-grow space-x-4"
-                            ><button
-                              @click="openEditSpecialities(specialities)"
-                            >
+                            ><button @click="openEditEthnicGroup(ethnicGroup)">
                               <PencilSquareIcon class="w-6 h-6" />
                             </button>
-                            <button @click="deleteSpecialitie(specialities.id)">
+                            <button @click="deleteEthnicGroup(ethnicGroup.id)">
                               <TrashIcon class="w-6 h-6" />
                             </button>
                           </span>
@@ -99,15 +98,51 @@
       </div>
     </div>
   </div>
+  <AddEthnicGroup :open="addEthnicGroup" @close-add="closeAddEthnicGroup" />
+  <EditEthnicGroup
+    :open="editEthnicGroup"
+    @close-edit="closeEditEthnicGroup"
+    :ethnicGroup="ethnicGroupSelected"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
+import AddEthnicGroup from "./common/AddEthnicGroup.vue";
+import EditEthnicGroup from "./common/EditEthnicGroup.vue";
 
 const store = useStore();
 
+const addEthnicGroup = ref(false);
+const editEthnicGroup = ref(false);
+const ethnicGroupSelected = ref(null);
+
+const openAddEthnicGroup = () => {
+  addEthnicGroup.value = true;
+};
+const closeAddEthnicGroup = () => {
+  addEthnicGroup.value = false;
+};
+
+const openEditEthnicGroup = (ethnicGroup) => {
+  ethnicGroupSelected.value = ethnicGroup;
+  editEthnicGroup.value = true;
+};
+
+const closeEditEthnicGroup = () => {
+  editEthnicGroup.value = false;
+};
+
+const deleteEthnicGroup = async (id) => {
+  try {
+    await store.dispatch("DELETE_ETHNIC_GROUP", id);
+    await store.dispatch("GET_ETHNIC_GROUPS");
+  } catch (err) {
+    throw err;
+  }
+};
 
 const ethnicGroupsData = computed(() => store.state.ethnic_groups);
 
