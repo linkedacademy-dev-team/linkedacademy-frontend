@@ -251,7 +251,6 @@ const activeDescativeParams = async (param) => {
     schoolId: schoolsData.value.id,
     relation: relations.value,
   };
-  console.log(payload);
   try {
     await store.dispatch("PUT_ACTIVE_DESACTIVE_PARAMETER", { payload });
   } catch (error) {
