@@ -6,18 +6,17 @@
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
               <h1 class="text-base font-semibold leading-6 text-white">
-                Discapacidades
+                Lenguajes
               </h1>
-              <p class="mt-2 text-sm text-gray-300">
-                Una lista de discapacidades.
-              </p>
+              <p class="mt-2 text-sm text-gray-300">Una lista de lenguajes.</p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
               <button
+                @click="openAddLanguage"
                 type="button"
                 class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Añadir discapacidad
+                Añadir lenguaje
               </button>
             </div>
           </div>
@@ -54,10 +53,7 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-800">
-                    <tr
-                      v-for="language in languagesData"
-                      :key="language.id"
-                    >
+                    <tr v-for="language in languagesData" :key="language.id">
                       <td
                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"
                       >
@@ -78,12 +74,10 @@
                       >
                         <div class="text-indigo-400 hover:text-indigo-300">
                           <span class="flex flex-grow space-x-4"
-                            ><button
-                              @click="openEditSpecialities(specialities)"
-                            >
+                            ><button @click="openEditLanguage(language)">
                               <PencilSquareIcon class="w-6 h-6" />
                             </button>
-                            <button @click="deleteSpecialitie(specialities.id)">
+                            <button @click="deleteLanguage(language.id)">
                               <TrashIcon class="w-6 h-6" />
                             </button>
                           </span>
@@ -99,15 +93,51 @@
       </div>
     </div>
   </div>
+  <addLanguage :open="addLanguageModal" @close-add="closeAddLanguage" />
+  <editLanguage
+    :open="editLanguageModal"
+    @close-edit="closeEditLanguage"
+    :language="languageSelected"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
+import addLanguage from "./common/addLanguages.vue";
+import editLanguage from "./common/editLanguage.vue";
 
 const store = useStore();
 
+const addLanguageModal = ref(false);
+const editLanguageModal = ref(false);
+const languageSelected = ref(null);
+
+const openAddLanguage = () => {
+  addLanguageModal.value = true;
+};
+const closeAddLanguage = () => {
+  addLanguageModal.value = false;
+};
+
+const openEditLanguage = (language) => {
+  languageSelected.value = language;
+  editLanguageModal.value = true;
+};
+
+const closeEditLanguage = () => {
+  editLanguageModal.value = false;
+};
+
+const deleteLanguage = async (id) => {
+  try {
+    await store.dispatch("DELETE_LANGUAGE", id);
+    await store.dispatch("GET_LANGUAGES");
+  } catch (err) {
+    throw err;
+  }
+};
 
 const languagesData = computed(() => store.state.languages);
 
